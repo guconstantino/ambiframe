@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://ambiframe.org/ambiframe" version="1.0.0" viewmodes="fullscreen">
+    <tizen:application id="ambiframe1.ambiframe" package="ambiframe1" required_version="3.0"/>
+    <content src="index.html"/>
+    <name>AmbiFrame</name>
+    <description>Transform your Samsung Smart TV into a dynamic ambient art gallery with daily 4K photography, live weather, and regional news.</description>
+    <author href="https://github.com/guconstantino/ambiframe" email="guconstantino@users.noreply.github.com">AmbiFrame Contributors</author>
+    <icon src="assets/icon.png"/>
+    <tizen:profile name="tv-samsung"/>
+    <feature name="http://tizen.org/feature/screen.size.all"/>
+    <access origin="*" subdomains="true"/>
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+    <tizen:privilege name="http://tizen.org/privilege/tv.window"/>
+    <tizen:privilege name="http://tizen.org/privilege/power"/>
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+    <tizen:setting screen-orientation="landscape" context-menu="disable" background-support="enable" encryption="disable" install-location="auto" hwkey-event="enable"/>
+</widget>

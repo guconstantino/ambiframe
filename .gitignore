@@ -1,0 +1,16 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Node dependencies
+node_modules/
+package-lock.json
+
+# Builds & Packages
+*.wgt
+dist/
+
+# Local Dev & Overrides
+local_config.js
+.env
+.env.local

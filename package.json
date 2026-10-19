@@ -1,0 +1,22 @@
+{
+  "name": "ambiframe",
+  "version": "1.0.0",
+  "description": "AmbiFrame - Living Ambient Screen & Cinematic 4K Dashboard for Samsung Smart TV",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -l 3000 .",
+    "build:wgt": "./build_wgt.sh"
+  },
+  "keywords": [
+    "tizen",
+    "samsung-tv",
+    "ambient-mode",
+    "the-frame",
+    "smart-tv",
+    "unsplash",
+    "dashboard",
+    "open-source"
+  ],
+  "author": "Gustavo Constantino & AmbiFrame Contributors",
+  "license": "MIT"
+}

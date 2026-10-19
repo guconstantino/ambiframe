@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AmbiFrame - Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Orbitron:wght@600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=0.9.18">
+</head>
+<body>
+  <!-- Camada 0: Canvas de Wallpapers 4K -->
+  <div id="media-viewport" class="media-viewport">
+    <div id="bg-layer-a" class="bg-wallpaper active"></div>
+    <div id="bg-layer-b" class="bg-wallpaper"></div>
+    <div class="ambient-gradient-overlay"></div>
+  </div>
+
+  <!-- Camada 1: Dashboard de Quatro Quadrantes Integrado -->
+  <main id="pixel-shift-container" class="dashboard-grid">
+    
+    <!-- TOPO ESQUERDO: MASTER CARD (RELÓGIO + CLIMA + LUA/SOL + AR/UV) -->
+    <header class="quadrant quad-top-left">
+      <div class="master-hero-card glass-panel">
+        <!-- Coluna 1: Relógio & Data -->
+        <div class="master-clock-col">
+          <div class="time-readout" id="time-readout">--:--</div>
+          <div class="date-readout" id="date-readout">
+            <span class="date-weekday" id="date-weekday">Carregando...</span>
+            <span class="date-daymonth" id="date-daymonth"></span>
+          </div>
+          <div class="location-chip">
+            <svg class="geo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <span id="geo-location">Londrina, Paraná</span>
+          </div>
+        </div>
+
+        <div class="card-vertical-divider"></div>
+
+        <!-- Coluna 2: Clima, Atmosfera & Ciclos Naturais -->
+        <div class="master-weather-col">
+          <div class="weather-top-row">
+            <div class="weather-icon-box" id="weather-icon-box">
+              <svg class="w-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            </div>
+            <div class="temp-meta">
+              <span class="temp-big" id="current-temp">--°</span>
+              <span class="weather-status-text" id="weather-cond">Céu Limpo</span>
+            </div>
+          </div>
+
+          <!-- Grade de Micro-Chips: Sensação, Amplitude, Ar, UV, Sol e Lua -->
+          <div class="atmospheric-chips-grid">
+            <span class="micro-chip" id="chip-feels">Sensação --°C</span>
+            <span class="micro-chip" id="chip-range">Máx --° · Mín --°</span>
+            <span class="micro-chip chip-eco" id="chip-aqi">🍃 Ar 29 (Bom)</span>
+            <span class="micro-chip chip-uv" id="chip-uv">☀️ UV 10 (Alto)</span>
+            <span class="micro-chip" id="chip-sunset">🌅 Pôr 18:38</span>
+            <span class="micro-chip" id="chip-moon">🌔 Lua 65%</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- AMBIENT HUD DOCK: CONTROLES UNIFICADOS COM ANTI-COLISÃO GESTALT -->
+    <aside class="ambient-hud-dock dock-right" id="ambient-hud-dock" aria-label="Controles do Painel">
+      <button class="hud-dock-btn tv-focusable" id="zen-mode-btn" title="Alternar Modo de Exibição (Nível 2 / 1 / 0)" tabindex="0">
+        <i data-lucide="eye" id="zen-mode-icon" class="hud-btn-icon"></i>
+        <span class="hud-btn-label" id="zen-mode-label">PAINEL</span>
+      </button>
+
+      <div class="hud-dock-divider" aria-hidden="true"></div>
+
+      <button class="hud-dock-btn tv-focusable" id="settings-open-btn" title="Configurações & Wallpapers (OK ou Tecla S)" tabindex="0">
+        <i data-lucide="sliders-horizontal" class="hud-btn-icon"></i>
+        <span class="hud-btn-label">MENU</span>
+      </button>
+
+      <div class="hud-dock-divider" aria-hidden="true"></div>
+
+      <button class="hud-dock-btn tv-focusable" id="wallpaper-switcher-btn" title="Trocar Wallpaper (Espaço ou OK)" tabindex="0">
+        <i data-lucide="image" class="hud-btn-icon"></i>
+        <span class="hud-btn-label" id="wallpaper-counter">1 / 24</span>
+      </button>
+    </aside>
+
+    <!-- BASE ESQUERDA: COTAÇÕES (DÓLAR, EURO, BITCOIN) -->
+    <section class="quadrant quad-bottom-left">
+      <div class="market-card glass-panel">
+        <div class="panel-header-mini">
+          <span class="panel-dot"></span>
+          <span class="panel-title-text">MERCADO AO VIVO</span>
+        </div>
+
+        <div class="market-ticker-grid">
+          <div class="market-pill">
+            <div class="market-label-group">
+              <span class="market-asset">USD / BRL</span>
+              <span class="market-badge down" id="usd-badge">-0.69%</span>
+            </div>
+            <div class="market-rate" id="usd-rate">R$ 5,06</div>
+          </div>
+
+          <div class="market-pill">
+            <div class="market-label-group">
+              <span class="market-asset">EUR / BRL</span>
+              <span class="market-badge down" id="eur-badge">-0.20%</span>
+            </div>
+            <div class="market-rate" id="eur-rate">R$ 5,70</div>
+          </div>
+
+          <div class="market-pill">
+            <div class="market-label-group">
+              <span class="market-asset">BTC / BRL</span>
+              <span class="market-badge down" id="btc-badge">-0.36%</span>
+            </div>
+            <div class="market-rate" id="btc-rate">R$ 412.694</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BASE DIREITA: NOTÍCIAS G1 (ESQUERDA) + STREAMING EM ALTA (DIREITA) -->
+    <footer class="quadrant quad-bottom-right bottom-right-cluster">
+      <!-- Card Notícias Reais G1 com Thumbnail 16:9 (Interativo / Foco) -->
+      <div class="news-card glass-panel interactive-card" id="news-card" tabindex="0" role="button" title="Clique ou pressione Enter para ler a notícia completa">
+        <div class="media-card-inner">
+          <div class="media-thumb-box">
+            <img id="news-thumb" class="media-thumb-img" src="" alt="Thumbnail Notícia" loading="lazy">
+            <div class="media-thumb-skeleton" id="news-thumb-skeleton"></div>
+          </div>
+          <div class="media-content-col">
+            <div class="news-header-row">
+              <span class="news-source-badge" id="news-source">G1 TECNOLOGIA</span>
+              <span class="news-timestamp" id="news-time">AO VIVO</span>
+            </div>
+            <div class="news-body">
+              <p class="news-headline" id="news-headline">Carregando manchetes em tempo real...</p>
+            </div>
+          </div>
+          <div class="card-expand-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="news-progress-track">
+          <div class="news-progress-fill" id="news-progress-bar"></div>
+        </div>
+      </div>
+
+      <!-- Card Cinema & Streaming Assinado com Pôster 2:3 (Interativo / Foco) -->
+      <div class="streaming-card glass-panel interactive-card" id="streaming-card" tabindex="0" role="button" title="Clique ou pressione Enter para ver detalhes">
+        <div class="media-card-inner">
+          <div class="media-poster-box">
+            <img id="stream-poster" class="media-poster-img" src="" alt="Pôster do Filme" loading="lazy">
+            <div class="media-poster-skeleton" id="stream-poster-skeleton"></div>
+          </div>
+          <div class="media-content-col">
+            <div class="streaming-header">
+              <span class="streaming-tag" id="stream-service-badge">NETFLIX</span>
+              <span class="streaming-rating" id="stream-rating">★ 8.5</span>
+            </div>
+            <div class="streaming-body">
+              <span class="streaming-title" id="stream-title">O Problema dos 3 Corpos</span>
+              <span class="streaming-genre" id="stream-genre">Ficção Científica · Mistério</span>
+            </div>
+          </div>
+          <div class="card-expand-indicator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <polyline points="9 21 3 21 3 15"></polyline>
+              <line x1="21" y1="3" x2="14" y2="10"></line>
+              <line x1="3" y1="21" x2="10" y2="14"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="stream-progress-track">
+          <div class="stream-progress-fill" id="stream-progress-bar"></div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- CAMADA DE RELÓGIO ADAPTATIVO ONE UI / APPLE (NÍVEL 1) -->
+    <div id="adaptive-clock-wrapper" class="adaptive-clock-wrapper" aria-hidden="true">
+      <div id="adaptive-clock" class="adaptive-clock layout-vertical pos-center">
+        <div class="adaptive-clock-digits" id="adaptive-clock-digits">
+          <span class="adaptive-digit adaptive-hours" id="adaptive-hours">--</span>
+          <span class="adaptive-digit adaptive-colon" id="adaptive-colon">:</span>
+          <span class="adaptive-digit adaptive-minutes" id="adaptive-minutes">--</span>
+        </div>
+        <div class="adaptive-clock-meta" id="adaptive-clock-meta">
+          <div class="adaptive-date-block" id="adaptive-date-block">
+            <span class="adaptive-weekday" id="adaptive-weekday">Carregando...</span>
+            <span class="adaptive-daymonth" id="adaptive-daymonth"></span>
+          </div>
+          <div class="adaptive-weather-block" id="adaptive-weather-block">
+            <span class="adaptive-weather-temp" id="adaptive-weather-temp">--°</span>
+            <span class="adaptive-weather-dot">•</span>
+            <span class="adaptive-weather-cond" id="adaptive-weather-cond">Céu Limpo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- MODAL CINEMÁTICO: DETALHES DE STREAMING & TRAILER         -->
+  <!-- ========================================================= -->
+  <div id="streaming-modal" class="cinematic-modal-overlay" aria-hidden="true">
+    <div class="cinematic-modal-card glass-panel" id="streaming-modal-card">
+      <div class="modal-grid">
+        <!-- Coluna Pôster Grande & Ações de Mídia -->
+        <div class="modal-poster-col">
+          <div class="modal-poster-wrapper">
+            <img id="modal-stream-poster" src="" alt="Pôster Grande" class="modal-poster-img">
+            <div class="modal-poster-glow" id="modal-poster-glow"></div>
+          </div>
+          <div class="modal-actions-col">
+            <a class="btn-primary-action tv-focusable" id="btn-open-service" href="#" target="_blank" tabindex="0">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span id="btn-open-service-label">Abrir na Plataforma</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Coluna Detalhes e Sinopse -->
+        <div class="modal-info-col">
+          <div class="modal-header-meta">
+            <span class="streaming-tag" id="modal-stream-tag">NETFLIX</span>
+            <span class="meta-pill" id="modal-stream-year">2024</span>
+            <span class="meta-pill" id="modal-stream-duration">1 Temporada</span>
+            <span class="meta-pill meta-age" id="modal-stream-age">16+</span>
+            <span class="meta-pill meta-quality">4K UHD · DOLBY ATMOS</span>
+            <span class="streaming-rating" id="modal-stream-rating">★ 8.5</span>
+            <span class="modal-hint-back">↩ Voltar / Toque fora</span>
+          </div>
+
+          <h2 class="modal-title" id="modal-stream-title">O Problema dos 3 Corpos</h2>
+          <div class="modal-genre-bar" id="modal-stream-genre">Ficção Científica · Mistério · Suspense Cósmico</div>
+
+          <div class="modal-synopsis-box" id="modal-synopsis-box">
+            <h4 class="synopsis-label">Sinopse</h4>
+            <p class="modal-synopsis-text" id="modal-stream-synopsis">Carregando detalhes...</p>
+          </div>
+
+          <div class="modal-credits-grid" id="modal-credits-box">
+            <div class="credit-row">
+              <span class="credit-label">Elenco:</span>
+              <span class="credit-val" id="modal-stream-cast">--</span>
+            </div>
+            <div class="credit-row">
+              <span class="credit-label">Criação / Direção:</span>
+              <span class="credit-val" id="modal-stream-creators">--</span>
+            </div>
+          </div>
+
+          <!-- Barra de Navegação & D-Pad Remote Helper -->
+          <div class="modal-footer-remote-bar">
+            <div class="tv-remote-guide">
+              <span class="remote-pill"><span class="remote-key">◀</span><span class="remote-key">▶</span> Alternar Filme</span>
+              <span class="remote-pill"><span class="remote-key">OK</span> Selecionar</span>
+              <span class="remote-pill remote-pill-back"><span class="remote-key">↩</span> Voltar</span>
+            </div>
+            <div class="modal-nav-carousel-group">
+              <button class="nav-prev-btn tv-focusable" id="btn-modal-prev" tabindex="0">← Anterior</button>
+              <span class="nav-counter" id="modal-nav-counter">1 / 12</span>
+              <button class="nav-next-btn tv-focusable" id="btn-modal-next" tabindex="0">Próximo →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL DE NOTÍCIAS G1 (LEITOR EXPANDIDO)                   -->
+  <!-- ========================================================= -->
+  <div id="news-modal" class="cinematic-modal-overlay" aria-hidden="true">
+    <div class="news-modal-card glass-panel" id="news-modal-card">
+      <div class="news-modal-body">
+        <div class="news-modal-media">
+          <img id="modal-news-img" src="" alt="Foto da Notícia" class="news-modal-lead-img">
+        </div>
+        <div class="news-modal-text-col">
+          <div class="news-header-row">
+            <span class="news-source-badge" id="modal-news-source">G1 TECNOLOGIA</span>
+            <span class="news-timestamp" id="modal-news-time">AO VIVO</span>
+            <button class="btn-close-modal tv-focusable" id="modal-close-news" tabindex="0" title="Fechar Notícia (Voltar)">✕</button>
+          </div>
+          <h2 class="news-modal-headline" id="modal-news-headline">Título da notícia</h2>
+          <div class="news-modal-lead-text" id="modal-news-text">Carregando conteúdo da matéria...</div>
+          <div class="news-modal-actions">
+            <a class="btn-primary-action tv-focusable" id="modal-news-link" href="#" target="_blank" tabindex="0">
+              <svg class="action-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+              <span>Ler Matéria Completa no G1</span>
+            </a>
+          </div>
+          <!-- Barra de Navegação & D-Pad Remote Helper -->
+          <div class="modal-footer-remote-bar news-modal-footer">
+            <div class="tv-remote-guide">
+              <span class="remote-pill"><span class="remote-key">◀</span><span class="remote-key">▶</span> Alternar Notícia</span>
+              <span class="remote-pill"><span class="remote-key">OK</span> Abrir Link</span>
+              <span class="remote-pill remote-pill-back"><span class="remote-key">↩</span> Voltar</span>
+            </div>
+            <div class="modal-nav-carousel-group">
+              <button class="nav-prev-btn tv-focusable" id="btn-modal-news-prev" tabindex="0">← Anterior</button>
+              <span class="nav-counter" id="modal-news-nav-counter">1 / 10</span>
+              <button class="nav-next-btn tv-focusable" id="btn-modal-news-next" tabindex="0">Próximo →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL DE CONFIGURAÇÕES: WALLPAPERS, ROTAÇÃO & UPLOAD      -->
+  <!-- ========================================================= -->
+  <div id="settings-modal" class="cinematic-modal-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="settings-modal-card glass-panel" id="settings-modal-card">
+      <div class="settings-modal-header">
+        <div class="settings-header-left">
+          <i data-lucide="sliders-horizontal" class="settings-header-icon"></i>
+          <div>
+            <h2 class="settings-title" id="settings-title">Configurações do AmbiFrame</h2>
+            <p class="settings-subtitle">Controle de Wallpapers, rotação e envio via celular</p>
+          </div>
+        </div>
+        <button class="btn-close-modal tv-focusable" id="modal-close-settings" tabindex="0" title="Fechar Menu de Configurações" aria-label="Fechar Menu">✕</button>
+      </div>
+
+      <!-- SEÇÃO FIXA NO TOPO (ROTAÇÃO + AÇÕES EM LOTE) -->
+      <div class="settings-sticky-top">
+        <div class="settings-controls-row">
+          <!-- Botão Liga/Desliga Rotação -->
+          <button class="settings-toggle-btn tv-focusable active" id="btn-toggle-rotation" tabindex="0" aria-label="Alternar rotação automática de wallpapers">
+            <i data-lucide="play" id="icon-toggle-rotation"></i>
+            <span id="label-toggle-rotation">Rotação: Ativada</span>
+          </button>
+
+          <!-- Seletor de Intervalo de Tempo -->
+          <div class="settings-pill-group" id="rotation-interval-group" role="radiogroup" aria-label="Intervalo de rotação">
+            <span class="settings-group-label">Tempo:</span>
+            <button class="settings-pill-btn tv-focusable" data-time="15000" tabindex="0" role="radio" aria-checked="false">15s</button>
+            <button class="settings-pill-btn tv-focusable" data-time="30000" tabindex="0" role="radio" aria-checked="false">30s</button>
+            <button class="settings-pill-btn tv-focusable" data-time="60000" tabindex="0" role="radio" aria-checked="false">1 min</button>
+            <button class="settings-pill-btn tv-focusable active" data-time="90000" tabindex="0" role="radio" aria-checked="true">90s</button>
+            <button class="settings-pill-btn tv-focusable" data-time="180000" tabindex="0" role="radio" aria-checked="false">3 min</button>
+            <button class="settings-pill-btn tv-focusable" data-time="300000" tabindex="0" role="radio" aria-checked="false">5 min</button>
+            <button class="settings-pill-btn tv-focusable" data-time="600000" tabindex="0" role="radio" aria-checked="false">10 min</button>
+            <button class="settings-pill-btn tv-focusable" data-time="900000" tabindex="0" role="radio" aria-checked="false">15 min</button>
+            <button class="settings-pill-btn tv-focusable" data-time="1800000" tabindex="0" role="radio" aria-checked="false">30 min</button>
+            <button class="settings-pill-btn tv-focusable" data-time="3600000" tabindex="0" role="radio" aria-checked="false">1h</button>
+            <button class="settings-pill-btn tv-focusable" data-time="7200000" tabindex="0" role="radio" aria-checked="false">2h</button>
+            <button class="settings-pill-btn tv-focusable" data-time="14400000" tabindex="0" role="radio" aria-checked="false">4h</button>
+            <button class="settings-pill-btn tv-focusable btn-custom-pill" id="btn-custom-interval" data-time="custom" tabindex="0" role="radio" aria-checked="false">⏱️ Personalizado...</button>
+          </div>
+        </div>
+
+        <div class="settings-controls-row" style="margin-top: 10px;">
+          <!-- Seletor de Fonte de Notícias -->
+          <div class="settings-pill-group" id="news-feed-group" role="radiogroup" aria-label="Fonte de Notícias">
+            <span class="settings-group-label"><i data-lucide="newspaper"></i> Notícias:</span>
+            <button class="settings-pill-btn tv-focusable active" data-feed="google-top" tabindex="0" role="radio" aria-checked="true">🌐 Google News (Manchetes)</button>
+            <button class="settings-pill-btn tv-focusable" data-feed="google-tech" tabindex="0" role="radio" aria-checked="false">💻 Google News (Tecnologia)</button>
+            <button class="settings-pill-btn tv-focusable" data-feed="google-business" tabindex="0" role="radio" aria-checked="false">📈 Economia</button>
+            <button class="settings-pill-btn tv-focusable" data-feed="g1-tech" tabindex="0" role="radio" aria-checked="false">🔴 G1 Tecnologia</button>
+          </div>
+          <span class="news-refresh-indicator" id="news-last-updated" style="font-size: 11px; color: rgba(255, 255, 255, 0.45); font-family: var(--font-mono); margin-left: auto;">Auto-refresh: a cada 20 min</span>
+        </div>
+
+        <div class="settings-gallery-header">
+          <h3 class="settings-section-title">
+            <i data-lucide="image"></i> Coleção de Wallpapers (OK = Exibir Agora)
+          </h3>
+          <div class="gallery-header-actions">
+            <span class="settings-gallery-count" id="settings-gallery-count">-- Wallpapers</span>
+            <span class="gallery-selected-badge" id="gallery-selected-badge">-- no Carrossel</span>
+            <button class="btn-mini-action btn-select-all tv-focusable" id="btn-select-all-wp" tabindex="0" title="Marcar todos os 120 wallpapers no carrossel">✓ Marcar Todos</button>
+            <button class="btn-mini-action btn-deselect-all tv-focusable" id="btn-deselect-all-wp" tabindex="0" title="Desmarcar todos os wallpapers do carrossel">✕ Desmarcar Todos</button>
+            <button class="btn-mini-action btn-sync-tv tv-focusable" id="btn-sync-tv-config" tabindex="0" title="Salvar seleção para a TV" style="background: rgba(34, 211, 238, 0.15); border-color: rgba(34, 211, 238, 0.4); color: var(--cyan); font-weight: 600;">💾 Salvar para TV</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ÁREA COM ROLAGEM ÚNICA (GALERIA 120 + UPLOAD) -->
+      <div class="settings-modal-scrollable" id="settings-modal-scrollable">
+        <section class="settings-section settings-section-gallery">
+          <div class="settings-gallery-grid" id="settings-gallery-grid" role="region" aria-label="Grade de papéis de parede">
+            <!-- Miniaturas preenchidas dinamicamente via JS -->
+          </div>
+        </section>
+
+        <!-- SEÇÃO 3: ENVIAR FOTOS PELO CELULAR (QR CODE) -->
+        <section class="settings-section settings-section-upload">
+          <div class="upload-promo-card">
+            <img src="assets/qr_upload.png" alt="QR Code Upload" class="upload-qr-img" id="settings-qr-code">
+            <div class="upload-promo-text">
+              <h4>Subir Fotos da Galeria do Celular</h4>
+              <p>Aponte a câmera do celular para o QR Code ou acesse no navegador da mesma rede Wi-Fi:</p>
+              <code class="network-url" id="network-upload-url">http://192.168.0.27:3000/upload.html</code>
+              <span class="upload-hint">As imagens enviadas ficam salvas na memória local permanente da sua TV.</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="settings-modal-footer tv-remote-guide">
+        <span class="remote-pill"><span class="remote-key">Setas</span> Navegar</span>
+        <span class="remote-pill"><span class="remote-key">OK</span> Exibir Agora</span>
+        <span class="remote-pill"><span class="remote-key">Espaço / C</span> Alternar no Carrossel</span>
+        <span class="remote-pill remote-pill-back"><span class="remote-key">↩</span> Fechar Menu</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub-Modal: Tempo Personalizado de Rotação -->
+  <div id="custom-interval-modal" class="cinematic-modal-overlay custom-interval-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="custom-interval-title">
+    <div class="custom-interval-card" id="custom-interval-card">
+      <div class="custom-interval-header">
+        <div class="custom-interval-header-left">
+          <i data-lucide="timer" class="settings-header-icon"></i>
+          <div>
+            <h3 class="custom-interval-title" id="custom-interval-title">Tempo Personalizado de Rotação</h3>
+            <p class="custom-interval-subtitle">Defina o tempo exato para alternar cada wallpaper</p>
+          </div>
+        </div>
+        <button class="btn-close-modal tv-focusable" id="btn-close-custom-interval" tabindex="0" title="Fechar (Voltar)">✕</button>
+      </div>
+
+      <div class="custom-interval-body">
+        <div class="custom-interval-input-row">
+          <button class="custom-stepper-btn tv-focusable" id="btn-interval-step-minus" tabindex="0" title="Diminuir Valor">-</button>
+          <div class="custom-interval-input-wrapper">
+            <input type="number" id="input-custom-interval-value" class="custom-interval-input tv-focusable" min="1" max="999" value="10" tabindex="0" />
+            <span class="custom-interval-unit-label" id="custom-interval-unit-text">minutos</span>
+          </div>
+          <button class="custom-stepper-btn tv-focusable" id="btn-interval-step-plus" tabindex="0" title="Aumentar Valor">+</button>
+        </div>
+
+        <!-- Seletor de Unidade (Segundos / Minutos / Horas) -->
+        <div class="custom-unit-selector" role="radiogroup" aria-label="Unidade de Tempo">
+          <button class="unit-pill-btn tv-focusable" id="unit-btn-s" data-unit="s" tabindex="0">Segundos</button>
+          <button class="unit-pill-btn tv-focusable active" id="unit-btn-m" data-unit="m" tabindex="0">Minutos</button>
+          <button class="unit-pill-btn tv-focusable" id="unit-btn-h" data-unit="h" tabindex="0">Horas</button>
+        </div>
+
+        <!-- Atalhos Rápidos com Steppers Adicionais -->
+        <div class="custom-quick-steppers">
+          <span class="quick-step-label">Ajuste rápido:</span>
+          <button class="quick-step-btn tv-focusable" data-add="-5" tabindex="0">- 5m</button>
+          <button class="quick-step-btn tv-focusable" data-add="+5" tabindex="0">+ 5m</button>
+          <button class="quick-step-btn tv-focusable" data-add="-15" tabindex="0">- 15m</button>
+          <button class="quick-step-btn tv-focusable" data-add="+15" tabindex="0">+ 15m</button>
+          <button class="quick-step-btn tv-focusable" data-add="+60" tabindex="0">+ 1h</button>
+        </div>
+
+        <div class="custom-interval-preview-text">
+          Wallpaper alternará a cada: <strong id="custom-interval-computed-preview">10 minutos (600s)</strong>
+        </div>
+      </div>
+
+      <div class="custom-interval-actions">
+        <button class="btn-cancel-custom tv-focusable" id="btn-cancel-custom-interval" tabindex="0">Cancelar</button>
+        <button class="btn-confirm-custom tv-focusable" id="btn-confirm-custom-interval" tabindex="0">✓ Aplicar este Tempo</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/anime.min.js"></script>
+  <script src="js/lucide.min.js"></script>
+  <script src="js/local_config.js"></script>
+  <script src="js/default_config.js"></script>
+  <script src="js/wallpapers.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
