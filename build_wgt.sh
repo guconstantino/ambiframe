@@ -9,7 +9,7 @@ mkdir -p "$OUTPUT_DIR"
 rm -f "${OUTPUT_DIR}/${WGT_NAME}"
 
 echo "Empacotando AmbiFrame v${VERSION}..."
-zip -r "${OUTPUT_DIR}/${WGT_NAME}" config.xml index.html upload.html css js assets -x "*.DS_Store" -x "assets/all_wallpapers_archive/*" -x "assets/screenshots/*"
+zip -r "${OUTPUT_DIR}/${WGT_NAME}" config.xml index.html upload.html css js assets -x "*.DS_Store" -x "assets/all_wallpapers_archive/*" -x "assets/screenshots/*" -x "assets/banner.png" -x "assets/logo.svg"
 
 echo "Pacote gerado com sucesso em: ${OUTPUT_DIR}/${WGT_NAME}"
 ls -lh "${OUTPUT_DIR}/${WGT_NAME}"

@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/icon.png" alt="AmbiFrame Logo" width="128" height="128" style="border-radius: 28px; box-shadow: 0 16px 32px rgba(0,0,0,0.4);" />
+  <img src="assets/icon.png" alt="AmbiFrame Icon" width="128" height="128" />
 
   # AmbiFrame
 
@@ -177,7 +177,9 @@ tizen install -s <TV_IP_ADDRESS>:26101 -n ambiframe-v1.0.0.wgt
 ```
 ambiframe/
 ├── assets/
-│   ├── icon.png                 # 512x512 app icon
+│   ├── icon.png                 # 512x512 official app squircle icon
+│   ├── banner.png               # Brand banner & social preview
+│   ├── logo.svg                 # Vector brand logo lockup
 │   ├── qr_upload.png            # QR Code asset for local photo upload
 │   ├── screenshots/             # High-res README screenshots
 │   ├── thumbnails/              # Local optimized offline thumbnails

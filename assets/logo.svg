@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Background Icon Gradients -->
+    <linearGradient id="bezelGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a2f3a"/>
+      <stop offset="50%" stop-color="#151922"/>
+      <stop offset="100%" stop-color="#0a0d14"/>
+    </linearGradient>
+    <linearGradient id="bezelStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#38bdf8" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="skyGrad" x1="0.5" y1="0" x2="0.5" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#2e1065"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef08a"/>
+      <stop offset="40%" stop-color="#f59e0b"/>
+      <stop offset="80%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="mountF" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="mountB" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c084fc"/>
+      <stop offset="100%" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="textGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f1f5f9"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="subGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#a855f7"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <clipPath id="iconClip">
+      <rect x="22" y="22" width="136" height="136" rx="30" ry="30" />
+    </clipPath>
+  </defs>
+
+  <!-- ICON CONTAINER -->
+  <g transform="translate(10, 0)">
+    <!-- Outer Glow -->
+    <rect x="18" y="18" width="144" height="144" rx="34" ry="34" fill="url(#bezelStroke)" opacity="0.4" filter="url(#glow)"/>
+    
+    <!-- Outer Titanium Bezel -->
+    <rect x="20" y="20" width="140" height="140" rx="32" ry="32" fill="url(#bezelGrad)" stroke="url(#bezelStroke)" stroke-width="2"/>
+
+    <!-- Inner Artwork (Clipped) -->
+    <g clip-path="url(#iconClip)">
+      <!-- Sky -->
+      <rect x="22" y="22" width="136" height="136" fill="url(#skyGrad)" />
+
+      <!-- Glowing Sun Orb -->
+      <circle cx="90" cy="78" r="28" fill="url(#sunGlow)" filter="url(#glow)" />
+      <circle cx="90" cy="78" r="20" fill="#fef08a" opacity="0.9" />
+
+      <!-- Geometric Mountain Layer Back (Purple) -->
+      <path d="M22 135 L55 85 L95 130 L135 75 L160 115 L160 160 L22 160 Z" fill="url(#mountB)" opacity="0.85" />
+
+      <!-- Geometric Mountain Layer Front (Cyan) -->
+      <path d="M22 158 L22 118 L68 138 L105 105 L158 145 L158 160 L22 160 Z" fill="url(#mountF)" opacity="0.95" />
+
+      <!-- Horizon light line -->
+      <line x1="22" y1="145" x2="158" y2="145" stroke="#38bdf8" stroke-width="1.5" opacity="0.4" />
+
+      <!-- Glass highlight reflection -->
+      <path d="M25 25 L120 25 L45 155 L25 155 Z" fill="#ffffff" opacity="0.05" />
+    </g>
+
+    <!-- Bezel Inner Rim Shadow & Sheen -->
+    <rect x="22" y="22" width="136" height="136" rx="30" ry="30" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.15" />
+  </g>
+
+  <!-- TYPOGRAPHY -->
+  <g transform="translate(195, 0)">
+    <!-- Brand Title -->
+    <text x="0" y="98" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="62" font-weight="800" letter-spacing="-1.5" fill="url(#textGrad)">Ambi<tspan fill="#38bdf8">Frame</tspan></text>
+    
+    <!-- Platform & Tagline Pill / Subtext -->
+    <text x="2" y="132" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="600" letter-spacing="2.5" fill="url(#subGrad)">AMBIENT ART • SMART TV DASHBOARD</text>
+
+    <!-- Tech Badges inside SVG -->
+    <g transform="translate(2, 142)">
+      <rect x="0" y="0" width="86" height="18" rx="9" ry="9" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="43" y="12.5" font-family="sans-serif" font-size="9" font-weight="700" fill="#94a3b8" text-anchor="middle" letter-spacing="0.5">TIZEN 3.0+</text>
+
+      <rect x="94" y="0" width="78" height="18" rx="9" ry="9" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="133" y="12.5" font-family="sans-serif" font-size="9" font-weight="700" fill="#38bdf8" text-anchor="middle" letter-spacing="0.5">4K HDR</text>
+
+      <rect x="180" y="0" width="92" height="18" rx="9" ry="9" fill="#1e293b" stroke="#334155" stroke-width="1" />
+      <text x="226" y="12.5" font-family="sans-serif" font-size="9" font-weight="700" fill="#10b981" text-anchor="middle" letter-spacing="0.5">OPEN SOURCE</text>
+    </g>
+  </g>
+</svg>
